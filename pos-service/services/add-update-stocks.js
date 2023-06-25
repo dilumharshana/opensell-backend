@@ -4,14 +4,14 @@ import { validateMandatoryData } from "../helpers/validateMandatoryData.js";
 
 export const add_update_stock_service = async (req, res) => {
   try {
-    const itemId = req.body?.itemId || null;
-    const itemName = req.body?.itemName || null;
-    const itemCode = req.body?.itemCode || null;
-    const itemDesc = req.body?.itemDesc || null;
-    const itemAmount = req.body?.itemAmount || null;
-    const itemPurchasePrice = req.body?.itemPurchasePrice || null;
-    const itemSellingPrice = req.body?.itemSellingPrice || null;
-    const itemPurchaseDate = req.body?.itemPurchaseDate || null;
+    const itemId = req.body?.ITEM_ID || null;
+    const itemName = req.body?.ITEM_NAME || null;
+    const itemCode = req.body?.ITEM_CODE || null;
+    const itemDesc = req.body?.ITEM_DESC || null;
+    const itemAmount = req.body?.ITEM_AMOUNT || null;
+    const itemPurchasePrice = req.body?.ITEM_PURCHASEPRICE || null;
+    const itemSellingPrice = req.body?.ITEM_SELLINGPRICE || null;
+    const itemPurchaseDate = req.body?.ITEM_PURCHASEDATE || null;
 
     const mandatoryValues = [itemName, itemCode, itemAmount];
     const validData = validateMandatoryData(mandatoryValues);
@@ -51,10 +51,10 @@ export const add_update_stock_service = async (req, res) => {
           2: itemAmount,
           3: itemSellingPrice,
         },
-        ["STOCK_ID"]
+        ["ITEM_STOCK_ID"]
       );
 
-      if (!stockId?.outBinds.STOCK_ID)
+      if (!stockId?.outBinds.ITEM_STOCK_ID)
         return res.json({
           status: 500,
           data: "Error in inserting data to tbl_stocks",
@@ -66,14 +66,16 @@ export const add_update_stock_service = async (req, res) => {
         {
           1: itemId.outBinds.ITEM_ID[0],
           2: itemPurchasePrice,
-          3: itemPurchaseDate,
+          3: null, //itemPurchaseDate,
           4: 1, //itemPurchasePrice
           5: itemAmount,
         },
-        ["ITEM_PURCHASED_ID"]
+        ["ITEM_PURCHASE_ID"]
       );
 
-      if (!itemPurchaseId?.outBinds.ITEM_PURCHASED_ID)
+
+
+      if (!itemPurchaseId?.outBinds.ITEM_PURCHASE_ID)
         return res.json({
           status: 500,
           data: "Error in inserting data to tbl_item_purchase",
