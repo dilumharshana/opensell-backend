@@ -1,7 +1,7 @@
 export const getSystemData = "SELECT NAME FROM TBL_SYSTEM";
 
 export const stockItemQueries = {
-  getAllStockItems: `SELECT A.*, B.STOCK_AMOUNT, B.SELLING_PRICE, C.ITEM_PURCHASED_PRICE, C.ITEM_PURCHASED_DATE
+  getAllStockItems: `SELECT A.*, B.STOCK_AMOUNT, B.SELLING_PRICE, C.PURCHASED_PRICE, C.PURCHASED_DATE
                     from TBL_ITEMS A  
                     INNER JOIN TBL_STOCKS B 
                     ON A.ITEM_ID = B.ITEM_ID 
@@ -26,12 +26,12 @@ export const stockItemQueries = {
                       WHERE ITEM_ID =:3`,
 
   addItemToItemPurchase: `INSERT INTO
-                        TBL_ITEM_PURCHASE (ITEM_ID, ITEM_PURCHASED_PRICE, ITEM_PURCHASED_DATE, ITEM_PURCHASED_BY, ITEM_AMOUNT ) 
+                        TBL_ITEM_PURCHASE (ITEM_ID, PURCHASED_PRICE, PURCHASED_DATE, PURCHASED_BY, AMOUNT ) 
                         VALUES (:1,:2,:3,:4,:5)`,
 
   updateItemToItemPurchase: `UPDATE
-                          TBL_ITEM_PURCHASE SET ITEM_PURCHASED_PRICE =:1, ITEM_PURCHASED_DATE =:2,
-                          ITEM_PURCHASED_BY =:3, 
-                          ITEM_AMOUNT =:4 
+                          TBL_ITEM_PURCHASE SET PURCHASED_PRICE =:1, PURCHASED_DATE =:2,
+                          PURCHASED_BY =:3, 
+                          AMOUNT =:4 
                           WHERE ITEM_ID =:5`,
 };

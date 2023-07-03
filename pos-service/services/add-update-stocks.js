@@ -8,13 +8,15 @@ export const add_update_stock_service = async (req, res) => {
     const itemName = req.body?.ITEM_NAME || null;
     const itemCode = req.body?.ITEM_CODE || null;
     const itemDesc = req.body?.ITEM_DESC || null;
-    const itemAmount = req.body?.ITEM_AMOUNT || null;
-    const itemPurchasePrice = req.body?.ITEM_PURCHASEPRICE || null;
-    const itemSellingPrice = req.body?.ITEM_SELLINGPRICE || null;
-    const itemPurchaseDate = req.body?.ITEM_PURCHASEDATE || null;
+    const itemAmount = req.body?.STOCK_AMOUNT || null;
+    const itemPurchasePrice = req.body?.PURCHASED_PRICE || null;
+    const itemSellingPrice = req.body?.SELLING_PRICE || null;
+    const itemPurchaseDate = req.body?.PURCHASED_DATE || null;
 
     const mandatoryValues = [itemName, itemCode, itemAmount];
     const validData = validateMandatoryData(mandatoryValues);
+
+   
 
     if (!validData) {
       return res.json({
@@ -73,8 +75,6 @@ export const add_update_stock_service = async (req, res) => {
         ["ITEM_PURCHASE_ID"]
       );
 
-
-
       if (!itemPurchaseId?.outBinds.ITEM_PURCHASE_ID)
         return res.json({
           status: 500,
@@ -83,7 +83,9 @@ export const add_update_stock_service = async (req, res) => {
 
       return res.json({
         status: 200,
-        data: "Item added successfully !",
+        data: {
+          ITEM_ID: itemId?.outBinds.ITEM_ID[0],
+        },
       });
     } else {
       // update item table
@@ -132,6 +134,21 @@ export const add_update_stock_service = async (req, res) => {
           5: itemId,
         }
       );
+
+      console.log(
+        "itemId =>",
+        itemId,
+        "itemAmount =>",
+        itemAmount,
+        "itemPurchasePrice =>",
+        itemPurchasePrice,
+        "itemSellingPrice =>",
+        itemSellingPrice,
+        "itemPurchaseDate =>",
+        itemPurchaseDate
+      );
+
+      
 
       if (!itemPurchaseId?.rowsAffected)
         return res.json({
