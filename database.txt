@@ -1,0 +1,88 @@
+--------------------------------------------------------
+--  File created - Monday-July-03-2023   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table TBL_ITEMS
+--------------------------------------------------------
+
+  CREATE TABLE "TBL_ITEMS" 
+   (	"ITEM_ID" NUMBER GENERATED ALWAYS AS IDENTITY MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE , 
+	"ITEM_CODE" VARCHAR2(20 BYTE), 
+	"ITEM_NAME" VARCHAR2(50 BYTE), 
+	"ITEM_DESC" VARCHAR2(100 BYTE)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table TBL_STOCKS
+--------------------------------------------------------
+
+  CREATE TABLE "TBL_STOCKS" 
+   (	"ITEM_ID" NUMBER, 
+	"STOCK_AMOUNT" NUMBER(38,0), 
+	"SELLING_PRICE" NUMBER(*,0), 
+	"ITEM_STOCK_ID" NUMBER GENERATED ALWAYS AS IDENTITY MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE 
+   ) ;
+--------------------------------------------------------
+--  DDL for Table TBL_ITEM_PURCHASE
+--------------------------------------------------------
+
+  CREATE TABLE "TBL_ITEM_PURCHASE" 
+   (	"ITEM_PURCHASE_ID" NUMBER GENERATED ALWAYS AS IDENTITY MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE , 
+	"ITEM_ID" NUMBER, 
+	"PURCHASED_PRICE" NUMBER(38,2), 
+	"PURCHASED_DATE" DATE, 
+	"AMOUNT" NUMBER, 
+	"PURCHASED_BY" NUMBER
+   )   NO INMEMORY ;
+--------------------------------------------------------
+--  DDL for Index TBL_ITEMS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TBL_ITEMS_PK" ON "TBL_ITEMS" ("ITEM_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index TBL_STOCKS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TBL_STOCKS_PK" ON "TBL_STOCKS" ("ITEM_STOCK_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index TBL_ITEM_PURCHASE_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TBL_ITEM_PURCHASE_PK" ON "TBL_ITEM_PURCHASE" ("ITEM_PURCHASE_ID") 
+  ;
+--------------------------------------------------------
+--  Constraints for Table TBL_ITEMS
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_ITEMS" MODIFY ("ITEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_ITEMS" MODIFY ("ITEM_CODE" NOT NULL ENABLE);
+  ALTER TABLE "TBL_ITEMS" ADD CONSTRAINT "TBL_ITEMS_PK" PRIMARY KEY ("ITEM_ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TBL_STOCKS
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_STOCKS" MODIFY ("ITEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_STOCKS" MODIFY ("ITEM_STOCK_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_STOCKS" ADD CONSTRAINT "TBL_STOCKS_PK" PRIMARY KEY ("ITEM_STOCK_ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TBL_ITEM_PURCHASE
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_ITEM_PURCHASE" MODIFY ("ITEM_PURCHASE_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_ITEM_PURCHASE" ADD CONSTRAINT "TBL_ITEM_PURCHASE_PK" PRIMARY KEY ("ITEM_PURCHASE_ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TBL_STOCKS
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_STOCKS" ADD CONSTRAINT "TBL_STOCKS_FK1" FOREIGN KEY ("ITEM_ID")
+	  REFERENCES "TBL_ITEMS" ("ITEM_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TBL_ITEM_PURCHASE
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_ITEM_PURCHASE" ADD CONSTRAINT "TBL_ITEM_PURCHASE_FK1" FOREIGN KEY ("ITEM_ID")
+	  REFERENCES "TBL_ITEMS" ("ITEM_ID") ENABLE;
