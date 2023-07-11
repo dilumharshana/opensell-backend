@@ -16,8 +16,6 @@ export const add_update_stock_service = async (req, res) => {
     const mandatoryValues = [itemName, itemCode, itemAmount];
     const validData = validateMandatoryData(mandatoryValues);
 
-   
-
     if (!validData) {
       return res.json({
         status: 500,
@@ -135,25 +133,11 @@ export const add_update_stock_service = async (req, res) => {
         }
       );
 
-      console.log(
-        "itemId =>",
-        itemId,
-        "itemAmount =>",
-        itemAmount,
-        "itemPurchasePrice =>",
-        itemPurchasePrice,
-        "itemSellingPrice =>",
-        itemSellingPrice,
-        "itemPurchaseDate =>",
-        itemPurchaseDate
-      );
-
-      
-
       if (!itemPurchaseId?.rowsAffected)
         return res.json({
           status: 500,
           data: "Error in updating data to tbl_item_purchase",
+          updated: true,
         });
 
       return res.json({

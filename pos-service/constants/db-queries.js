@@ -35,3 +35,9 @@ export const stockItemQueries = {
                           AMOUNT =:4 
                           WHERE ITEM_ID =:5`,
 };
+
+export const saleQueries = {
+  insetSell: `INSERT INTO TBL_SALES (SELLED_BY, RECIVED_CASH, DISCOUNT) VALUES (:1,:2,:3)`,
+  insetSellItems: `INSERT INTO TBL_SALES_ITEMS (SALE_ID, ITEM_ID, QUANTITY, SELLD_PRICE) VALUES (:1,:2,:3,:4)`,
+  updateStockItems: `SET TBL_STOCKS STOCK_AMOUNT =:1 WHERE ITEM_ID =:2`,
+};

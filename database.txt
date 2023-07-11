@@ -86,3 +86,64 @@
 
   ALTER TABLE "TBL_ITEM_PURCHASE" ADD CONSTRAINT "TBL_ITEM_PURCHASE_FK1" FOREIGN KEY ("ITEM_ID")
 	  REFERENCES "TBL_ITEMS" ("ITEM_ID") ENABLE;
+--------------------------------------------------------
+--  File created - Tuesday-July-11-2023   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table TBL_SALES
+--------------------------------------------------------
+
+  CREATE TABLE "TBL_SALES" 
+   (	"SALE_ID" NUMBER(38,0) GENERATED ALWAYS AS IDENTITY MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE , 
+	"SALE_DATE" TIMESTAMP (6) WITH LOCAL TIME ZONE DEFAULT systimestamp, 
+	"SELLED_BY" NUMBER, 
+	"RECIVED_CASH" NUMBER(*,0), 
+	"DISCOUNT" NUMBER(*,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table TBL_SALES_ITEMS
+--------------------------------------------------------
+
+  CREATE TABLE "TBL_SALES_ITEMS" 
+   (	"SALES_ITEM_ID" NUMBER GENERATED ALWAYS AS IDENTITY MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE , 
+	"SALE_ID" NUMBER, 
+	"ITEM_ID" NUMBER, 
+	"QUANTITY" NUMBER, 
+	"SELLD_PRICE" NUMBER(*,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Index TBL_SALES_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TBL_SALES_PK" ON "TBL_SALES" ("SALE_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index TBL_SALES_ITEMS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TBL_SALES_ITEMS_PK" ON "TBL_SALES_ITEMS" ("SALES_ITEM_ID") 
+  ;
+--------------------------------------------------------
+--  Constraints for Table TBL_SALES
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_SALES" MODIFY ("SALE_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_SALES" ADD CONSTRAINT "TBL_SALES_PK" PRIMARY KEY ("SALE_ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TBL_SALES_ITEMS
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_SALES_ITEMS" MODIFY ("SALES_ITEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_SALES_ITEMS" MODIFY ("SALE_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_SALES_ITEMS" MODIFY ("ITEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "TBL_SALES_ITEMS" ADD CONSTRAINT "TBL_SALES_ITEMS_PK" PRIMARY KEY ("SALES_ITEM_ID")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TBL_SALES_ITEMS
+--------------------------------------------------------
+
+  ALTER TABLE "TBL_SALES_ITEMS" ADD CONSTRAINT "TBL_SALES_ITEMS_FK1" FOREIGN KEY ("SALE_ID")
+	  REFERENCES "TBL_SALES" ("SALE_ID") ENABLE;
+  ALTER TABLE "TBL_SALES_ITEMS" ADD CONSTRAINT "TBL_SALES_ITEMS_FK2" FOREIGN KEY ("ITEM_ID")
+	  REFERENCES "TBL_ITEMS" ("ITEM_ID") ENABLE;
