@@ -62,11 +62,20 @@ export const save_bill = async (req, res) => {
       stockItems
     );
 
-    if (sellItemResponse?.rowsAffected !== selledItemsArray.length)
+    const updateSuccess =
+      sellItemResponse?.rowsAffected === selledItemsArray.length &&
+      stockitemsUpdateResponse?.rowsAffected === stockItems.length;
+
+    if (updateSuccess)
       return res.json({
-        status: 500,
-        data: "Error in inserting sale items",
+        status: 200,
+        data: "Data updated successfully !",
       });
+
+    return res.json({
+      status: 500,
+      data: "Error in inserting sale items",
+    });
   } catch (error) {
     console.log(error);
   }
