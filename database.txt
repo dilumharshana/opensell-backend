@@ -171,7 +171,7 @@
 	"SALE_ID" NUMBER, 
 	"ITEM_ID" NUMBER, 
 	"QUANTITY" NUMBER, 
-	"SELLD_PRICE" NUMBER(*,0)
+	"SELLED_PRICE" NUMBER(*,0)
    ) ;
 --------------------------------------------------------
 --  DDL for Index TBL_SALES_PK
