@@ -9,8 +9,8 @@ export const stockItemQueries = {
                     ON A.ITEM_ID = C.ITEM_ID`,
 
   addItem: `INSERT INTO
-            TBL_ITEMS (ITEM_CODE, ITEM_NAME, ITEM_DESC) 
-            VALUES (:1,:2,:3)`,
+            TBL_ITEMS (ITEM_CODE, ITEM_NAME, ITEM_DESC, MESURABLE) 
+            VALUES (:1,:2,:3,:4)`,
 
   updateItem: `UPDATE
                TBL_ITEMS 

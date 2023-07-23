@@ -8,6 +8,7 @@ export const add_update_stock_service = async (req, res) => {
     const itemName = req.body?.ITEM_NAME || null;
     const itemCode = req.body?.ITEM_CODE || null;
     const itemDesc = req.body?.ITEM_DESC || null;
+    const mesaurable = req.body?.mesaurable || null;
     const itemAmount = req.body?.STOCK_AMOUNT || null;
     const itemPurchasePrice = req.body?.PURCHASED_PRICE || null;
     const itemSellingPrice = req.body?.SELLING_PRICE || null;
@@ -33,6 +34,7 @@ export const add_update_stock_service = async (req, res) => {
           1: itemCode,
           2: itemName,
           3: itemDesc,
+          4: mesaurable,
         },
         ["ITEM_ID"]
       );
