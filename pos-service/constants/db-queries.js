@@ -14,8 +14,8 @@ export const stockItemQueries = {
 
   updateItem: `UPDATE
                TBL_ITEMS 
-               SET ITEM_CODE =:1, ITEM_NAME =:2, ITEM_DESC =:3 
-               WHERE ITEM_ID =:4`,
+               SET ITEM_CODE =:1, ITEM_NAME =:2, ITEM_DESC =:3 , MESURABLE =:4
+               WHERE ITEM_ID =:5`,
 
   addItemToStock: `INSERT INTO
                    TBL_STOCKS (ITEM_ID, STOCK_AMOUNT,SELLING_PRICE) 
